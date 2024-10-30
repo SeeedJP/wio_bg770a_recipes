@@ -90,7 +90,7 @@ PCにWio BG770Aの開発環境をセットアップして、今回のスケッ�
 
 ### 5-3. スケッチをダウンロード
 
-PCにdust-monitoringフォルダを用意して、GitHubから[dust-monitoring.ino]()`TODO`をダウンロードしてください。
+PCにdust-monitoringフォルダを用意して、GitHubから[dust-monitoring.ino](https://github.com/SeeedJP/wio_bg770a_recipes/blob/main/dust-monitoring/dust-monitoring.ino)をダウンロードしてください。
 
 ## 6. 実行
 
