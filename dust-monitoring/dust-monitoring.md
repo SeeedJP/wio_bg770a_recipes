@@ -29,27 +29,14 @@
 
 マイコンボードWio BG770AにSIMとアンテナを取り付けて、センサーを追加します。
 
-### 3-1. SIMを取り付け
+### 3-1. LTEアンテナとSIMを取り付け
 
-Wio BG770AのSIMスロットにSIMを取り付けます。
-[Wio BG770A ハードウェアマニュアル](https://seeedjp.github.io/Wiki/Wio_BG770A/hardware.html)の「SIMスロット」を参考に、下記手順を実施してください。
-
-1. SIMスロットの金属カバーをOPEN方向にスライドした後、上方向に開いてください。
-2. SIMスロットにnanoSIMを置いてください。その際、nanoSIMの向きに注意してください。（角が欠けている箇所を合わせてください。）
-3. 金属カバーを閉じてLOCK方向にスライドしてロックしてください。
+[Wio BG770A ユーザーマニュアル](https://seeedjp.github.io/Wiki/Wio_BG770A/user-manual)の「3-1. LTEアンテナとSIMを取り付ける」を参考に、LTEアンテナとSIMを取り付けてください。
 
 <a href="media/2.jpg"><img src="media/2.jpg" width="300"></a>
-
-### 3-2. アンテナを接続
-
-Wio BG770Aに同封のPCBアンテナを、Wio BG770Aの「LTE」アンテナコネクタに接続してください。
-
 <a href="media/3.jpg"><img src="media/3.jpg" width="300"></a>
 
-> LTEアンテナコネクタの挿抜回数上限は30回と少ないです。
-> できる限り、LTEアンテナを取り付けたままにしてください。
-
-### 3-3. センサーを接続
+### 3-2. センサーを接続
 
 Grove - HM3301を、Groveケーブルを使ってWio BG770Aの「Grove - I2C」コネクタに接続してください。
 
@@ -77,13 +64,13 @@ SIMの所属グループを、作成したSIMグループにしてください�
 
 PCにWio BG770Aの開発環境をセットアップして、今回のスケッチが利用するライブラリをインストールします。
 
-### 5-1. Arduino開発環境をインストール
+### 5-1. 開発環境をインストール
 
-[Wio BG770A クイックスタートガイド](https://seeedjp.github.io/Wiki/Wio_BG770A/quick-start.html)の「開発環境」を参考に、Arduino IDEとSeeedJP nRF52 Boards、WioCellularをインストールしてください。
+[Wio BG770A ユーザーマニュアル](https://seeedjp.github.io/Wiki/Wio_BG770A/user-manual)の「2-1. 開発環境を準備する」を参考に、開発環境をインストールしてください。
 
 ### 5-2. 追加ライブラリをインストール
 
-[Wio BG770A クイックスタートガイド](https://seeedjp.github.io/Wiki/Wio_BG770A/quick-start.html)の「手順3: WioCellularをインストール」を参考に、Arduino IDEに下記ライブラリをインストールしてください。
+[Wio BG770A ユーザーマニュアル](https://seeedjp.github.io/Wiki/Wio_BG770A/user-manual)の「WioCellularをインストール」を参考に、Arduino IDEに下記ライブラリをインストールしてください。
 
 * [ArduinoJson](https://docs.arduino.cc/libraries/arduinojson/)
 * [GroveDriverPack](https://docs.arduino.cc/libraries/grovedriverpack/)
@@ -106,10 +93,10 @@ Arduino IDEでdust-monitoring.inoを開いてください。
 
 ### 6-3. ボードを選択
 
-[Wio BG770A クイックスタートガイド](https://seeedjp.github.io/Wiki/Wio_BG770A/quick-start)の「手順3: blinkスケッチをアップロード」を参考に、ボード選択欄で「Seeed Wio BG770A COMx」を選んでください。
+[Wio BG770A ユーザーマニュアル](https://seeedjp.github.io/Wiki/Wio_BG770A/user-manual)の「blinkスケッチをアップロード」を参考に、ボード選択欄で「Seeed Wio BG770A COMx」を選んでください。
 
 一覧にSeeed Wio BG770Aが表示されないときは、DFUモードへの切り替えが必要です。
-[Wio BG770A クイックスタートガイド](https://seeedjp.github.io/Wiki/Wio_BG770A/quick-start)の「手順2: DFUモードに切替」を実施してください。
+[Wio BG770A ユーザーマニュアル](https://seeedjp.github.io/Wiki/Wio_BG770A/user-manual)の「DFUモードに切替」を実施してください。
 
 <a href="media/9.png"><img src="media/9.png" width="300"></a>
 
