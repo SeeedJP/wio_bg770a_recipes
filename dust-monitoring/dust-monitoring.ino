@@ -20,23 +20,31 @@
 #include <GroveDriverPack.h>
 
 #define SEARCH_ACCESS_TECHNOLOGY (WioCellularNetwork::SearchAccessTechnology::LTEM)
-#define LTEM_BAND (WioCellularNetwork::NTTDOCOMO_LTEM_BAND)
+#define LTEM_BAND (WioCellularNetwork::ALL_LTEM_BAND)
 static const char APN[] = "soracom.io";
 
 static const char HOST[] = "uni.soracom.io";
 static constexpr int PORT = 23080;
 
+// template<typename MODULE> using CellularClient = WioCellularTcpClient2<MODULE>;  // TCP
+template<typename MODULE> using CellularClient = WioCellularUdpClient2<MODULE>;  // UDP
+
 static constexpr int INTERVAL = 1000 * 10;             // [ms]
 static constexpr int POWER_ON_TIMEOUT = 1000 * 20;     // [ms]
-static constexpr int NETWORK_TIMEOUT = 1000 * 60 * 2;  // [ms]
+static constexpr int NETWORK_TIMEOUT = 1000 * 60 * 3;  // [ms]
+static constexpr int CONNECT_TIMEOUT = 1000 * 10;      // [ms]
 static constexpr int RECEIVE_TIMEOUT = 1000 * 10;      // [ms]
 
 static void abortHandler(int sig) {
+  Serial.printf("ABORT: Signal %d received\n", sig);
+  yield();
+
+  vTaskSuspendAll();  // FreeRTOS
   while (true) {
     ledOn(LED_BUILTIN);
-    delay(100);
+    nrfx_coredep_delay_us(100000);  // Spin
     ledOff(LED_BUILTIN);
-    delay(100);
+    nrfx_coredep_delay_us(100000);  // Spin
   }
 }
 
@@ -67,7 +75,7 @@ void setup(void) {
   WioNetwork.begin();
   if (!WioNetwork.waitUntilCommunicationAvailable(NETWORK_TIMEOUT)) abort();
 
-  WioCellular.enableGrovePower();
+  digitalWrite(PIN_VGROVE_ENABLE, VGROVE_ENABLE_ON);
   delay(500);
   Board.I2C.Enable();
   if (!PM.Init()) abort();
@@ -123,13 +131,13 @@ static bool send(const JsonDocument &doc) {
   Serial.println(PORT);
 
   {
-    WioCellularTcpClient2<WioCellularModule> client{ WioCellular };
+    CellularClient<WioCellularModule> client{ WioCellular };
     if (!client.open(WioNetwork.config.pdpContextId, HOST, PORT)) {
       Serial.printf("ERROR: Failed to open %s\n", WioCellularResultToString(client.getLastResult()));
       return false;
     }
 
-    if (!client.waitforConnect()) {
+    if (!client.waitForConnect(CONNECT_TIMEOUT)) {
       Serial.printf("ERROR: Failed to connect %s\n", WioCellularResultToString(client.getLastResult()));
       return false;
     }
