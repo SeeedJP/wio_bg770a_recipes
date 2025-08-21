@@ -27,8 +27,9 @@ static constexpr int PORT = 23080;
 // template<typename MODULE> using CellularClient = WioCellularTcpClient2<MODULE>;  // TCP
 template<typename MODULE> using CellularClient = WioCellularUdpClient2<MODULE>;  // UDP
 
-static constexpr int INTERVAL = 1000 * 30;             // [ms]
+static constexpr int INTERVAL = 1000 * 60;             // [ms]
 static constexpr int POWER_ON_TIMEOUT = 1000 * 20;     // [ms]
+static constexpr int POWER_ON_DELAY_TIME = 1000 * 20;  // [ms]
 static constexpr int NETWORK_TIMEOUT = 1000 * 60 * 3;  // [ms]
 static constexpr int CONNECT_TIMEOUT = 1000 * 10;      // [ms]
 static constexpr int RECEIVE_TIMEOUT = 1000 * 10;      // [ms]
@@ -80,6 +81,7 @@ void loop() {
 
   // Power on the cellular module
   if (WioCellular.powerOn(POWER_ON_TIMEOUT) != WioCellularResult::Ok) abort();
+  delay(POWER_ON_DELAY_TIME);
   WioNetwork.begin();
 
   // Measure and send
