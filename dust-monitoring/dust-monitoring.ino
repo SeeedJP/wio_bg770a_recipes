@@ -53,6 +53,7 @@ static GrovePM25HM3301 PM{ &Board.I2C };
 static JsonDocument JsonDoc;
 
 void setup(void) {
+  signal(SIGABRT, abortHandler);
   Serial.begin(115200);
   {
     const auto start = millis();
@@ -122,7 +123,6 @@ static bool measure(JsonDocument &doc) {
 }
 
 static bool send(const JsonDocument &doc) {
-  signal(SIGABRT, abortHandler);
   Serial.println("### Sending");
 
   Serial.print("Connecting ");
